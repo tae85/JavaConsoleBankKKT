@@ -1,4 +1,4 @@
-package banking6;
+package banking7;
 
 public interface ICustomDefine {
 	// 메뉴출력

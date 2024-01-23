@@ -1,4 +1,4 @@
-package banking6;
+package banking7;
 
 import java.io.EOFException;
 import java.io.FileInputStream;
@@ -30,6 +30,7 @@ public class AccountManager {
 		System.out.println("-----계좌선택-----");
 		System.out.println("1.보통계좌");
 		System.out.println("2.신용신뢰계좌");
+		System.out.println("3.특판계좌");
 		System.out.print("선택:"); choiceGrade = scan.nextInt();
 		scan.nextLine();
 		
@@ -78,6 +79,25 @@ public class AccountManager {
 			else {
 				set.add(high);
 				System.out.println("계좌계설이 완료되었습니다.");
+			}
+		} else if(choiceGrade == 3) {
+			SpecialAccount special = new SpecialAccount(makeAccount, makeName, makeBalance, interest);
+			if(set.contains(special)) {
+				scan.nextLine();
+				System.out.print("중복계좌발견됨. 덮어쓸까요?(y or n)");
+				String duplication = scan.nextLine();
+				if(duplication.equals("y")) {
+					deleteAccount(makeAccount);
+					set.add(special);
+					System.out.println("새로운 정보로 갱신되었습니다.");
+				}
+				else {
+					set.add(special);
+				}
+			}
+			else {
+				set.add(special);
+				System.out.println("계좌개설이 완료되었습니다.");
 			}
 		}
 		else {
@@ -153,7 +173,9 @@ public class AccountManager {
 	public void showAccInfo() {
 		System.out.println("***계좌정보출력***");
 		for(Account acc : set) {
+			System.out.println("--------------------");
 			acc.showAllAccount();
+			System.out.println("--------------------");
 		}
 		System.out.println("전체계좌정보 출력이 완료되었습니다.");
 		System.out.println();
@@ -233,7 +255,7 @@ public class AccountManager {
 	public void saveAccountInfo() {
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(
-					new FileOutputStream("src/banking6/AccountInfo.obj"));
+					new FileOutputStream("src/banking7/AccountInfo.obj"));
 			for(Account acc : set) {
 				out.writeObject(acc);
 			}
@@ -255,7 +277,7 @@ public class AccountManager {
 		ObjectInputStream in = null;
 		try {
 			in = new ObjectInputStream(
-					new FileInputStream("src/banking6/AccountInfo.obj"));
+					new FileInputStream("src/banking7/AccountInfo.obj"));
 			
 			while(true) {
 				Account acc = (Account)in.readObject();

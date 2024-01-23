@@ -1,4 +1,4 @@
-package banking6;
+package banking7;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -25,14 +25,17 @@ public class AutoSaver extends Thread {
 			while(true) {
 				
 				BufferedWriter out = new BufferedWriter(
-						new FileWriter("src/banking6/AutoSaveAccount.txt"));
+						new FileWriter("src/banking7/AutoSaveAccount.txt"));
 				
 				for(Account acc : set) {
-					if(acc instanceof NormalAccount) {
-						out.write("[보통계좌]");
+					if(acc instanceof SpecialAccount) {
+						out.write("[특판계좌]");
 					}
 					else if(acc instanceof HighCreditAccount) {
 						out.write("[신용신뢰계좌]");
+					}
+					else if(acc instanceof NormalAccount) {
+						out.write("[보통계좌]");
 					}
 					out.write("계좌번호=");
 					out.write(acc.account);
@@ -42,6 +45,7 @@ public class AutoSaver extends Thread {
 					out.write(String.valueOf(acc.balance));
 					out.write(", 기본이자=");
 					out.write(String.valueOf(acc.interest));
+					out.write("%");
 					if(acc instanceof HighCreditAccount) {
 						out.write(", 신용등급=");
 						HighCreditAccount high = (HighCreditAccount)acc;

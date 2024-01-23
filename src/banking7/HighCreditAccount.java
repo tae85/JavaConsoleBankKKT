@@ -1,4 +1,4 @@
-package banking6;
+package banking7;
 
 import java.util.Objects;
 
@@ -23,11 +23,9 @@ public class HighCreditAccount extends Account {
 	
 	@Override
 	public void showAllAccount() {
-		System.out.println("--------------------");
 		super.showAllAccount();
 		System.out.print("기본이자>" + interest + "%");
 		System.out.println("  신용등급>" + grade);
-		System.out.println("--------------------");
 	}
 
 	@Override
