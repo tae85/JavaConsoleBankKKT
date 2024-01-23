@@ -1,8 +1,9 @@
-package banking4;
+package banking5;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Account {
+public abstract class Account implements Serializable {
 	public String account;
 	public String name;
 	public int balance;

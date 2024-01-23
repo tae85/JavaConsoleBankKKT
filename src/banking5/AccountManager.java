@@ -1,5 +1,12 @@
-package banking4;
+package banking5;
 
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -228,6 +235,7 @@ public class AccountManager {
 		for(Account acc : set) {
 			if(deleteAccount.compareTo(acc.account) == 0) {
 				set.remove(acc);
+				
 				deleteIndex = 1;
 				break;
 			}
@@ -256,4 +264,92 @@ public class AccountManager {
 		
 		return choice;
 	}
+	
+	public void saveAccountInfo() {
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(
+					new FileOutputStream("src/banking5/AccountInfo.obj"));
+			for(Account acc : set) {
+				out.writeObject(acc);
+			}
+			
+			out.close();
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("파일 없음");
+		}
+		catch(IOException e) {
+			System.out.println("뭔가 없음");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void readAccountInfo() {
+		ObjectInputStream in = null;
+		try {
+			in = new ObjectInputStream(
+					new FileInputStream("src/banking5/AccountInfo.obj"));
+			
+			while(true) {
+				Account acc = (Account)in.readObject();
+				set.add(acc);
+			}
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("[예외]Obj파일이 없습니다.");
+		}
+		catch(EOFException e) {
+			System.out.println("[예외]파일의 끝까지 모두 복원했습니다.");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("복원 중 알 수 없는 예외발생");
+		}
+		finally {
+			/* try절에서 예외가 발생하더라도 finally절은 무조건 실행되므로 정상적으로 닫을 수 있다. */
+			try {
+				in.close();
+			} 
+			catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("클로즈 예외 발생");
+			}
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

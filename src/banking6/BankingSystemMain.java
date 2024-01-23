@@ -1,9 +1,6 @@
-package banking4;
+package banking6;
 
 public class BankingSystemMain {
-	
-	static Account[] myAccount;
-	static int numOfAccount;
 	
 	public static void main(String[] args) {
 		final int MAKE = 1;
@@ -11,11 +8,11 @@ public class BankingSystemMain {
 		final int WITHDRAW = 3;
 		final int INQUIRE = 4;
 		final int DELETE = 5;
-		final int EXIT = 6;
+		final int SAVEOPTION = 6;
+		final int EXIT = 7;
 		
-		myAccount = new Account[50];
-		numOfAccount = 0;
 		AccountManager manager = new AccountManager();
+		manager.readAccountInfo();
 		
 		// 프로그램 실행 함수
 		while(true) {
@@ -39,8 +36,11 @@ public class BankingSystemMain {
 			case DELETE:
 				manager.deleteAccount();
 				break;
+			case SAVEOPTION:
+				manager.saveOption();
+				break;
 			case EXIT:
-				//manager.saveAccountInfo();
+				manager.saveAccountInfo();
 				System.out.println("프로그램 종료");
 				return;
 			}

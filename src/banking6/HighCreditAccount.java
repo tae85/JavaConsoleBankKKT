@@ -1,31 +1,34 @@
-package banking4;
+package banking6;
 
 import java.util.Objects;
 
-public class NormalAccount extends Account {
+public class HighCreditAccount extends Account {
 	
-	public NormalAccount() {
-		
-	}
+	String grade;
 	
-	public NormalAccount(String account, String name, int balance, int interest) {
+	public HighCreditAccount(String account, String name, int balance, 
+			String grade, int interest) {
 		super(account, name, balance);
+		this.grade = grade;
 		this.interest = interest;
 	}
 	
 	@Override
 	public void interestCal(int diposit) {
-		balance = balance + (balance * interest/100) + diposit;
+		ICustomDefine.creditGrade(grade);
+		balance = balance + (balance * interest/100) + 
+				(balance * addInterest/100) + diposit;
 	}
 	
 	@Override
 	public void showAllAccount() {
 		System.out.println("--------------------");
 		super.showAllAccount();
-		System.out.println("기본이자>" + interest + "%");
+		System.out.print("기본이자>" + interest + "%");
+		System.out.println("  신용등급>" + grade);
 		System.out.println("--------------------");
 	}
-	
+
 	@Override
 	public int hashCode() {
 		int returnCode = Objects.hash(super.account);
