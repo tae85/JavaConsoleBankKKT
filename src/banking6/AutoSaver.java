@@ -11,6 +11,9 @@ public class AutoSaver extends Thread {
 	HashSet<Account> set;
 	boolean isAutoSaver = false;
 	
+	public AutoSaver() {
+		
+	}
 	public AutoSaver(HashSet<Account> set) {
 		this.set = set;
 	}

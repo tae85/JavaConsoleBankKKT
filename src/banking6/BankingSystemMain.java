@@ -13,6 +13,7 @@ public class BankingSystemMain {
 		
 		AccountManager manager = new AccountManager();
 		manager.readAccountInfo();
+//		AutoSaver as = null;
 		
 		// 프로그램 실행 함수
 		while(true) {

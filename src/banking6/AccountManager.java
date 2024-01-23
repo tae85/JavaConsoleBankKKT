@@ -13,6 +13,8 @@ import java.util.Scanner;
 
 public class AccountManager {
 	HashSet<Account> set;
+	AutoSaver as;
+	int choiceGrade;
 	
 	public AccountManager() {
 		set = new HashSet<Account>();
@@ -20,16 +22,15 @@ public class AccountManager {
 	
 	// 계좌개설을 위한 함수
 	public void makeAccount() {
-		AutoSaver sv = new AutoSaver(set);
 		Scanner scan = new Scanner(System.in);
 		String makeAccount, makeName, grade;
-		int makeBalance, choice, interest;
+		int makeBalance, interest;
 		
 		System.out.println("***신규계좌개설***");
 		System.out.println("-----계좌선택-----");
 		System.out.println("1.보통계좌");
 		System.out.println("2.신용신뢰계좌");
-		System.out.print("선택:"); choice = scan.nextInt();
+		System.out.print("선택:"); choiceGrade = scan.nextInt();
 		scan.nextLine();
 		
 		System.out.print("계좌번호:"); makeAccount = scan.nextLine();
@@ -38,7 +39,7 @@ public class AccountManager {
 		scan.nextLine();
 		System.out.print("기본이자%(정수형태로입력):"); interest = scan.nextInt();
 		
-		if(choice == 1) {
+		if(choiceGrade == 1) {
 			NormalAccount normal = new NormalAccount(makeAccount, makeName, makeBalance, interest);
 			if(set.contains(normal)) {
 				scan.nextLine();
@@ -58,7 +59,7 @@ public class AccountManager {
 				System.out.println("계좌계설이 완료되었습니다.");
 			}
 		}
-		else if(choice == 2) {
+		else if(choiceGrade == 2) {
 			scan.nextLine();
 			System.out.print("신용등급(A,B,C등급):"); grade = scan.nextLine();
 			HighCreditAccount high = new HighCreditAccount(makeAccount, makeName, makeBalance, grade, interest);
@@ -128,13 +129,13 @@ public class AccountManager {
 						acc.balance -= withdraw;
 					}
 					else {
-						System.out.println("잔고가 부족합니다. 금액전체를 출금할까요?");
+						System.out.println("잔고 부족. 금액전체를 출금할까요?(y or n)");
 						withdrawAll = scan.nextLine();
-						if(withdrawAll.equals("YES")) {
+						if(withdrawAll.equals("y")) {
 							acc.balance = 0;
 							System.out.println("출금이 완료되었습니다.");
 						}
-						else if(withdrawAll.equals("NO")){
+						else if(withdrawAll.equals("n")){
 							break;
 						}
 					}
@@ -164,18 +165,16 @@ public class AccountManager {
 		
 		try {
 			deposit = scan.nextInt();
-			try {
-				if(deposit >= 0) {
-					if(deposit % 500 != 0) {
-						DepositErrorException ex = new DepositErrorException();
-						deposit = 0;
-						throw ex;
-					}
+			if(deposit >= 0) {
+				if(deposit % 500 != 0) {
+					DepositErrorException ex = new DepositErrorException();
+					deposit = 0;
+					throw ex;
 				}
 			}
-			catch (DepositErrorException e) {
-				System.out.println(e.getMessage());
-			}
+		}
+		catch (DepositErrorException e) {
+			System.out.println(e.getMessage());
 		}
 		catch(InputMismatchException e) {
 			System.out.println("문자를 입력할 수 없습니다.");
@@ -189,18 +188,16 @@ public class AccountManager {
 		int withdraw = 0;
 		try {
 			withdraw = scan.nextInt();
-			try {
-				if(withdraw >= 0) {
-					if(withdraw%1000 != 0) {
-						WithdrawErrorException ex = new WithdrawErrorException();
-						withdraw = 0;
-						throw ex;
-					}
+			if(withdraw >= 0) {
+				if(withdraw%1000 != 0) {
+					WithdrawErrorException ex = new WithdrawErrorException();
+					withdraw = 0;
+					throw ex;
 				}
 			}
-			catch (WithdrawErrorException e) {
-				System.out.println(e.getMessage());
-			}
+		}
+		catch (WithdrawErrorException e) {
+			System.out.println(e.getMessage());
 		}
 		catch(InputMismatchException e) {
 			System.out.println("문자를 입력할 수 없습니다.");
@@ -248,16 +245,14 @@ public class AccountManager {
 		int choice = 0;
 		try {
 			choice = scan.nextInt();
-			try {
-				if(choice <= 0 || choice >= 8) {
-					MenuSelectException ex = new MenuSelectException();
-					throw ex;
-				}
+			if(choice <= 0 || choice >= 8) {
+				MenuSelectException ex = new MenuSelectException();
+				throw ex;
 			}
-			catch (MenuSelectException e) {
-				System.out.println("메뉴 입력 예외 발생됨.");
-				System.out.println(e.getMessage());
-			}
+		}
+		catch (MenuSelectException e) {
+			System.out.println("메뉴 입력 예외 발생됨.");
+			System.out.println(e.getMessage());
 		}
 		catch(InputMismatchException e) {
 			System.out.println("문자를 입력할 수 없습니다.");
@@ -322,28 +317,31 @@ public class AccountManager {
 	
 	public void saveOption() {
 		Scanner scan = new Scanner(System.in);
+		as = new AutoSaver(set);
 		
 		System.out.println("저장옵션을 선택하세요.");
 		System.out.println("1.자동저장On, 2.자동저장off");
 		int option = scan.nextInt();
-		AutoSaver sv = new AutoSaver(set);
-		sv.setDaemon(true);
+		as.setDaemon(true);
 		
 		try {
 			if(option == 1) {
-				sv.start();
+				if(as.isAlive()) {
+					System.out.println("이미 자동저장이 실행중입니다.");
+				}
+				else {
+					as.start();
+				}
 			}
 			else if (option == 2) {
-				System.out.println(sv.isAlive());
-					sv.interrupt();
+				System.out.println(as.isAlive());
+					as.interrupt();
 				
 				System.out.println("자동저장을 종료합니다.");
-//				System.out.println("InterruptedException예외발생");
 			}
+			System.out.println("현재 활성화 된 상태의 쓰레드수" + Thread.activeCount());
+			System.out.println("현재 실행중인 쓰레드명:" + Thread.currentThread().getName());
 		}
-//		catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}

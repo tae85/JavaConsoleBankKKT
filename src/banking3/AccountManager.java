@@ -96,13 +96,13 @@ public class AccountManager {
 						myAccount[i].balance -= withdraw;
 					}
 					else {
-						System.out.println("잔고가 부족합니다. 금액전체를 출금할까요?");
+						System.out.println("잔고 부족. 금액전체를 출금할까요?(y or n)");
 						withdrawAll = scan.nextLine();
-						if(withdrawAll.equals("YES")) {
+						if(withdrawAll.equals("y")) {
 							myAccount[i].balance = 0;
 							System.out.println("출금이 완료되었습니다.");
 						}
-						else if(withdrawAll.equals("NO")){
+						else if(withdrawAll.equals("n")){
 							break;
 						}
 					}
@@ -132,18 +132,16 @@ public class AccountManager {
 		
 		try {
 			deposit = scan.nextInt();
-			try {
-				if(deposit >= 0) {
-					if(deposit % 500 != 0) {
-						DepositErrorException ex = new DepositErrorException();
-						deposit = 0;
-						throw ex;
-					}
+			if(deposit >= 0) {
+				if(deposit % 500 != 0) {
+					DepositErrorException ex = new DepositErrorException();
+					deposit = 0;
+					throw ex;
 				}
 			}
-			catch (DepositErrorException e) {
-				System.out.println(e.getMessage());
-			}
+		}
+		catch (DepositErrorException e) {
+			System.out.println(e.getMessage());
 		}
 		catch(InputMismatchException e) {
 			System.out.println("문자를 입력할 수 없습니다.");
@@ -157,18 +155,16 @@ public class AccountManager {
 		int withdraw = 0;
 		try {
 			withdraw = scan.nextInt();
-			try {
-				if(withdraw >= 0) {
-					if(withdraw%1000 != 0) {
-						WithdrawErrorException ex = new WithdrawErrorException();
-						withdraw = 0;
-						throw ex;
-					}
+			if(withdraw >= 0) {
+				if(withdraw%1000 != 0) {
+					WithdrawErrorException ex = new WithdrawErrorException();
+					withdraw = 0;
+					throw ex;
 				}
 			}
-			catch (WithdrawErrorException e) {
-				System.out.println(e.getMessage());
-			}
+		}
+		catch (WithdrawErrorException e) {
+			System.out.println(e.getMessage());
 		}
 		catch(InputMismatchException e) {
 			System.out.println("문자를 입력할 수 없습니다.");
