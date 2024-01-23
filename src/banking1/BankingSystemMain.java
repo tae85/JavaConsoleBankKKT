@@ -1,32 +1,11 @@
-package banking;
+package banking1;
 
 import java.util.Scanner;
 
-public class Account {
-	static String account;
-	static String name;
-	static int balance;
+public class BankingSystemMain {
+	
 	static Account[] myAccount;
 	static int numOfAccount;
-	
-//	public Account() {
-//	}
-	
-	public Account(String account, String name, int balance) {
-		this.account = account;
-		this.name = name;
-		this.balance = balance;
-	}
-
-	public static void menuShow() {
-		System.out.println("----- Menu -----");
-		System.out.print("1.계좌개설  ");
-		System.out.print("2.입 금  ");
-		System.out.println("3.출 금 ");
-		System.out.print("4.계좌정보출력  ");
-		System.out.println("5.프로그램종료 ");
-		System.out.print("선택:");
-	}
 	
 	public static void main(String[] args) {
 		final int MAKE = 1;
@@ -41,7 +20,7 @@ public class Account {
 		
 		// 프로그램 실행 함수
 		while(true) {
-			menuShow();
+			ICustomDefine.menuShow();
 			int choice = scan.nextInt();
 			
 			switch (choice) {
@@ -62,22 +41,22 @@ public class Account {
 				System.out.println("프로그램 종료");
 				return;
 			}
-
 		}
-
 	}
 	
 	// 계좌개설을 위한 함수
 	public static void makeAccount() {
 		Scanner scan = new Scanner(System.in);
+		String addAccount, addName;
+		int addBalance;
 		
 		System.out.println("***신규계좌개설***");
-		System.out.print("계좌번호:"); account = scan.nextLine();
-		System.out.print("고객이름:"); name = scan.nextLine();
-		System.out.print("잔고:"); balance = scan.nextInt();
+		System.out.print("계좌번호:"); addAccount = scan.nextLine();
+		System.out.print("고객이름:"); addName = scan.nextLine();
+		System.out.print("잔고:"); addBalance = scan.nextInt();
 		
 //		Account addAcount = new Account(account, name, balance);
-		myAccount[numOfAccount++] = new Account(account, name, balance);
+		myAccount[numOfAccount++] = new Account(addAccount, addName, addBalance);
 		
 		System.out.println("계좌계설이 완료되었습니다.");
 		System.out.println();
@@ -86,14 +65,15 @@ public class Account {
 	// 입    금
 	public static void depositMoney() {
 		Scanner scan = new Scanner(System.in);
+		String depositAccount;
 		int deposit;
 		
 		System.out.println("***입 금***");
 		System.out.println("계좌번호와 입금할 금액을 입력하세요.");
-		System.out.print("계좌번호:"); account = scan.nextLine();
+		System.out.print("계좌번호:"); depositAccount = scan.nextLine();
 		System.out.print("입금액:"); deposit = scan.nextInt();
 		for(int i = 0; i < numOfAccount; i++) {
-			if(account.compareTo(myAccount[i].account) == 0) {
+			if(depositAccount.compareTo(myAccount[i].account) == 0) {
 				myAccount[i].balance += deposit;
 			}
 		}
@@ -104,14 +84,15 @@ public class Account {
 	// 출    금
 	public static void withdrawMoney() {
 		Scanner scan = new Scanner(System.in);
+		String withdrawAccount;
 		int withdraw;
 		
 		System.out.println("***출 금***");
 		System.out.println("계좌번호와 출금할 금액을 입력하세요.");
-		System.out.print("계좌번호:"); account = scan.nextLine();
+		System.out.print("계좌번호:"); withdrawAccount = scan.nextLine();
 		System.out.print("출금액:"); withdraw = scan.nextInt();
 		for(int i = 0; i < numOfAccount; i++) {
-			if(account.compareTo(myAccount[i].account) == 0) {
+			if(withdrawAccount.compareTo(myAccount[i].account) == 0) {
 				myAccount[i].balance -= withdraw;
 			}
 		}
@@ -136,25 +117,4 @@ public class Account {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
