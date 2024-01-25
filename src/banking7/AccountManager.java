@@ -34,14 +34,20 @@ public class AccountManager {
 		System.out.println("2.신용신뢰계좌");
 		System.out.println("3.특판계좌");
 		System.out.print("선택:"); choiceGrade = scan.nextInt();
-		scan.nextLine();
+		scan.nextLine();	// 버퍼 제거용
+		
+		if(choiceGrade < 1 || choiceGrade > 3) {
+			System.out.println("1~3사이의 숫자를 입력해주세요.");
+			return;
+		}
+		
+		System.out.print("계좌번호:"); makeAccount = scan.nextLine();
+		System.out.print("고객이름:"); makeName = scan.nextLine();
+		System.out.print("잔고:"); makeBalance = scan.nextInt();
+		scan.nextLine();	// 버퍼 제거용
+		System.out.print("기본이자%(정수형태로입력):"); interest = scan.nextInt();
 		
 		if(choiceGrade == 1) {
-			System.out.print("계좌번호:"); makeAccount = scan.nextLine();
-			System.out.print("고객이름:"); makeName = scan.nextLine();
-			System.out.print("잔고:"); makeBalance = scan.nextInt();
-			scan.nextLine();	// 버퍼 제거용
-			System.out.print("기본이자%(정수형태로입력):"); interest = scan.nextInt();
 			NormalAccount normal = new NormalAccount(makeAccount, makeName, makeBalance, interest);
 			if(!set.add(normal)) {	// 동일한 객체가 있어 add에 실패해서 false를 반환한다
 				scan.nextLine();	// 버퍼 제거용
@@ -57,16 +63,10 @@ public class AccountManager {
 				}
 			}
 			else {
-				set.add(normal);
 				System.out.println("계좌개설이 완료되었습니다.");
 			}
 		}
 		else if(choiceGrade == 2) {
-			System.out.print("계좌번호:"); makeAccount = scan.nextLine();
-			System.out.print("고객이름:"); makeName = scan.nextLine();
-			System.out.print("잔고:"); makeBalance = scan.nextInt();
-			scan.nextLine();	// 버퍼 제거용
-			System.out.print("기본이자%(정수형태로입력):"); interest = scan.nextInt();
 			scan.nextLine();	// 버퍼 제거용
 			System.out.print("신용등급(A,B,C등급):"); grade = scan.nextLine();
 			HighCreditAccount high = new HighCreditAccount(makeAccount, makeName, makeBalance, grade, interest);
@@ -83,15 +83,9 @@ public class AccountManager {
 				}
 			}
 			else {
-				set.add(high);
 				System.out.println("계좌계설이 완료되었습니다.");
 			}
 		} else if(choiceGrade == 3) {
-			System.out.print("계좌번호:"); makeAccount = scan.nextLine();
-			System.out.print("고객이름:"); makeName = scan.nextLine();
-			System.out.print("잔고:"); makeBalance = scan.nextInt();
-			scan.nextLine();	// 버퍼 제거용
-			System.out.print("기본이자%(정수형태로입력):"); interest = scan.nextInt();
 			SpecialAccount special = new SpecialAccount(makeAccount, makeName, makeBalance, interest);
 			if(!set.add(special)) {
 				scan.nextLine();	// 버퍼 제거용
@@ -107,12 +101,8 @@ public class AccountManager {
 				}
 			}
 			else {
-				set.add(special);
 				System.out.println("계좌개설이 완료되었습니다.");
 			}
-		}
-		else {
-			System.out.println("1~3사이의 숫자를 입력해주세요.");
 		}
 		System.out.println();
 	}
@@ -159,6 +149,7 @@ public class AccountManager {
 					}
 					else {
 						System.out.println("잔고 부족. 금액전체를 출금할까요?(y or n)");
+						scan.nextLine();
 						withdrawAll = scan.nextLine();
 						if(withdrawAll.equals("y")) {
 							acc.balance = 0;
@@ -260,6 +251,7 @@ public class AccountManager {
 			}
 			
 			out.close();
+			System.out.println("계좌정보가 저장 되었습니다.");
 		}
 		catch(FileNotFoundException e) {
 			System.out.println("파일 없음");
