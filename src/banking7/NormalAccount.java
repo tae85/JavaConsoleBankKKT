@@ -4,9 +4,7 @@ import java.util.Objects;
 
 public class NormalAccount extends Account {
 	
-	public NormalAccount() {
-		
-	}
+	public int interest;
 	
 	public NormalAccount(String account, String name, int balance, int interest) {
 		super(account, name, balance);

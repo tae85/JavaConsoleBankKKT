@@ -2,20 +2,13 @@ package banking7;
 
 import java.util.InputMismatchException;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-
 public class BankingSystemMain {
 	
 	public static void main(String[] args) {
-		final int MAKE = 1;
-		final int DEPOSIT = 2;
-		final int WITHDRAW = 3;
-		final int INQUIRE = 4;
-		final int DELETE = 5;
-		final int SAVEOPTION = 6;
-		final int EXIT = 7;
-		
+		// 핸들러 호출
 		AccountManager manager = new AccountManager();
+		
+		//  obj파일 리딩 
 		manager.readAccountInfo();
 		
 		// 프로그램 실행 함수
@@ -27,25 +20,25 @@ public class BankingSystemMain {
 				int choice = manager.choiceMenu();
 				
 				switch (choice) {
-				case MAKE:
+				case ICustomDefine.MAKE:
 					manager.makeAccount();
 					break;
-				case DEPOSIT:
+				case ICustomDefine.DEPOSIT:
 					manager.depositMoney();
 					break;
-				case WITHDRAW:
+				case ICustomDefine.WITHDRAW:
 					manager.withdrawMoney();
 					break;
-				case INQUIRE:
+				case ICustomDefine.INQUIRE:
 					manager.showAccInfo();
 					break;
-				case DELETE:
+				case ICustomDefine.DELETE:
 					manager.deleteAccount();
 					break;
-				case SAVEOPTION:
+				case ICustomDefine.SAVEOPTION:
 					manager.saveOption();
 					break;
-				case EXIT:
+				case ICustomDefine.EXIT:
 					manager.saveAccountInfo();
 					System.out.println("프로그램 종료");
 					return;
@@ -63,6 +56,7 @@ public class BankingSystemMain {
 			}
 			catch(InputMismatchException e) {
 				System.out.println("문자를 입력할 수 없습니다.");
+				AccountManager.scan.next();
 			}
 			catch(Exception e) {
 				e.printStackTrace();

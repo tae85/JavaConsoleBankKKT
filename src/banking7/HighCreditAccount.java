@@ -5,7 +5,7 @@ import java.util.Objects;
 public class HighCreditAccount extends Account {
 	
 	String grade;
-	int addInterest;
+	int interest, addInterest;
 	
 	public HighCreditAccount(String account, String name, int balance, 
 			String grade, int interest) {

@@ -2,10 +2,6 @@ package banking2;
 
 public class NormalAccount extends Account {
 	
-	public NormalAccount() {
-		
-	}
-	
 	public NormalAccount(String account, String name, int balance, int interest) {
 		super(account, name, balance);
 		this.interest = interest;

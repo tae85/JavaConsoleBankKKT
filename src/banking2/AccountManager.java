@@ -56,7 +56,6 @@ public class AccountManager {
 		Scanner scan = new Scanner(System.in);
 		String depositAccount;
 		int deposit;
-		NormalAccount nomal = new NormalAccount();
 		
 		System.out.println("***입 금***");
 		System.out.println("계좌번호와 입금할 금액을 입력하세요.");

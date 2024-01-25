@@ -2,7 +2,7 @@ package banking1;
 
 public interface ICustomDefine {
 	// 메뉴출력
-	public static void menuShow() {
+	static void menuShow() {
 		System.out.println("----- Menu -----");
 		System.out.print("1.계좌개설  ");
 		System.out.print("2.입 금  ");
@@ -12,7 +12,7 @@ public interface ICustomDefine {
 		System.out.print("선택:");
 	}
 	
-	public static int creditGrade(String grade) {
+	static int creditGrade(String grade) {
 		int addInterest;
 		
 		switch(grade) {

@@ -1,8 +1,16 @@
 package banking7;
 
 public interface ICustomDefine {
+	int MAKE = 1;
+	int DEPOSIT = 2;
+	int WITHDRAW = 3;
+	int INQUIRE = 4;
+	int DELETE = 5;
+	int SAVEOPTION = 6;
+	int EXIT = 7;
+	
 	// 메뉴출력
-	public static void menuShow() {
+	static void menuShow() {
 		System.out.println("------------- Menu -------------");
 		System.out.print("1.계좌개설  ");
 		System.out.print("2.입금  ");
@@ -14,11 +22,11 @@ public interface ICustomDefine {
 		System.out.print("선택:");
 	}
 	
-	public static int creditGrade(String grade) {
+	static int creditGrade(String grade) {
 		int addInterest;
 		
 		switch(grade) {
-		case "A" :
+		case "A" : 
 			addInterest = 2;
 			break;
 		case "B" :

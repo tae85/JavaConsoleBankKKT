@@ -8,8 +8,6 @@ public class Account {
 	public int balance;
 	public int interest, addInterest;
 	
-	public Account() {}
-	
 	public Account(String account, String name, int balance) {
 		this.account = account;
 		this.name = name;

@@ -7,9 +7,6 @@ public abstract class Account implements Serializable {
 	public String account;
 	public String name;
 	public int balance;
-	public int interest;
-	
-	public Account() {}
 	
 	public Account(String account, String name, int balance) {
 		this.account = account;
