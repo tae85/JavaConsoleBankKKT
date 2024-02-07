@@ -27,8 +27,7 @@ public class AutoSaver extends Thread {
 					if(acc instanceof SpecialAccount) {
 						SpecialAccount special = (SpecialAccount)acc;
 						out.printf("[특판계좌]계좌번호=%s, 이름=%s, 잔고=%d, 기본이자=%d%%\n", 
-								special.account, special.name, special.balance, 
-								special.interest);
+								special.account, special.name, special.balance, special.interest);
 					}
 					else if(acc instanceof HighCreditAccount) {
 						HighCreditAccount high = (HighCreditAccount)acc;
@@ -38,8 +37,7 @@ public class AutoSaver extends Thread {
 					else if(acc instanceof NormalAccount) {
 						NormalAccount normal = (NormalAccount)acc;
 						out.printf("[보통계좌]계좌번호=%s, 이름=%s, 잔고=%d, 기본이자=%d%%\n", 
-								normal.account, normal.name, normal.balance, 
-								normal.interest);
+								normal.account, normal.name, normal.balance, normal.interest);
 					}
 				}
 				System.out.println("계좌정보가 텍스트로 자동저장되었습니다.");
@@ -59,7 +57,6 @@ public class AutoSaver extends Thread {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		super.run();
 		
 	}
 	

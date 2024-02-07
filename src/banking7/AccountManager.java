@@ -15,7 +15,6 @@ import java.util.Scanner;
 
 public class AccountManager {
 	static Scanner scan = new Scanner(System.in);
-	int choiceGrade;
 	HashSet<Account> set;
 	AutoSaver as = null;
 	
@@ -26,7 +25,7 @@ public class AccountManager {
 	// 계좌개설을 위한 함수
 	public void makeAccount() {
 		String makeAccount, makeName, grade;
-		int makeBalance, interest;
+		int makeBalance, interest, choiceGrade;
 		
 		System.out.println("***신규계좌개설***");
 		System.out.println("-----계좌선택-----");
@@ -36,6 +35,7 @@ public class AccountManager {
 		System.out.print("선택:"); choiceGrade = scan.nextInt();
 		scan.nextLine();	// 버퍼 제거용
 		
+		// 지정된 숫자가 입력되지 않으면 안내문 출력 후 return으로 메인 메뉴로 돌아간다.
 		if(choiceGrade < 1 || choiceGrade > 3) {
 			System.out.println("1~3사이의 숫자를 입력해주세요.");
 			return;
@@ -63,6 +63,7 @@ public class AccountManager {
 				}
 			}
 			else {
+				// 위 조건안에서 add에 성공했으므로 추가적인 add필요 없음
 				System.out.println("계좌개설이 완료되었습니다.");
 			}
 		}

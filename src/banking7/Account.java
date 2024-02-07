@@ -14,9 +14,9 @@ public abstract class Account implements Serializable {
 		this.balance = balance;
 	}
 
-	public void interestCal(int diposit) {}
+	public void interestCal(int deposit) {}
 	
-	public void interestCal(int diposit, String grade) {}
+	public void interestCal(int deposit, String grade) {}
 	
 	public void showAllAccount() {
 		System.out.println("계좌번호>" + account);
